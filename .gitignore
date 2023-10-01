@@ -1,1 +1,3 @@
 data/users.csv
+.vscode/settings.json
+model/trained_model.json
