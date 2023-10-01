@@ -42,15 +42,17 @@ class UsernameGenerator:
 
     def persist(self, path_to_persisted_model) -> None:
         with open(path_to_persisted_model, 'w') as f:
-            json.dump(self.frequency_matrix, f)             
+            json.dump(self.frequency_matrix, f)  
+
+    def load(self, path_to_model) -> None: 
+        with open(path_to_model, 'r') as f:
+            self.frequency_matrix = json.load(f)           
 
     def generate_user_name(self) -> str:
         username = START_TOKEN # start token
         next = get_next_char(self.frequency_matrix, username)
         while next != END_TOKEN:
-            print(next, username)
             username += next
-            print(username)
             next = get_next_char(self.frequency_matrix, next)
         
         return username[1:] # remove START tokens
